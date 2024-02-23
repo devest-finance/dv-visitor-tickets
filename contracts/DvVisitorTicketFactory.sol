@@ -18,7 +18,7 @@ contract DvVisitorTicketFactory is DvFactory {
         token.detach();
     }
 
-    function issue(string memory name, string memory symbol, uint256 rootId) public payable isActive returns (address)
+    function issue(string memory name, string memory symbol, uint256 rootId, string memory rootUri) public payable isActive returns (address)
     {
         // take royalty
         require(msg.value >= _issueFee, "Please provide enough fee");
@@ -26,7 +26,7 @@ contract DvVisitorTicketFactory is DvFactory {
             payable(_feeRecipient).transfer(_issueFee);
 
         // issue token
-        DvVisitorTicket token = new DvVisitorTicket(name, symbol, rootId, _msgSender(), address(this));
+        DvVisitorTicket token = new DvVisitorTicket(name, symbol, rootId, rootUri, _msgSender(), address(this));
 
         emit deployed(_msgSender(), address(token));
         return address(token);
