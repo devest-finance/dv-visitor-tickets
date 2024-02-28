@@ -102,13 +102,14 @@ contract DvTicket is DeVest, IERC165, IERC721, IERC721Metadata {
         require(!_exists(tokenId), "ERC721: token already minted");
 
 
+        _owners[tokenId] = to;
+
+        addToOwnedAndAllTokens(to, tokenId);
+
         unchecked {
             _balances[to] += 1;
         }
 
-        _owners[tokenId] = to;
-
-        addToOwnedAndAllTokens(to, tokenId);
 
         emit Transfer(address(0), to, tokenId);
     }
@@ -122,6 +123,8 @@ contract DvTicket is DeVest, IERC165, IERC721, IERC721Metadata {
         removeFromOwnedTokens(from, tokenId);
         removeFromAllTokens(tokenId);
 
+        addToOwnedAndAllTokens(to, tokenId);
+        
         unchecked {
             _balances[from] -= 1;
             _balances[to] += 1;
@@ -129,7 +132,6 @@ contract DvTicket is DeVest, IERC165, IERC721, IERC721Metadata {
 
         _owners[tokenId] = to;
         
-        addToOwnedAndAllTokens(to, tokenId);
 
         emit Transfer(from, to, tokenId);
     }
