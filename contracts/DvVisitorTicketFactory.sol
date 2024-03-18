@@ -2,9 +2,6 @@
 pragma solidity ^0.8.12;
 
 
-
-import "@openzeppelin/contracts/utils/Context.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@devest/contracts/DvFactory.sol";
 import "./DvVisitorTicket.sol";
 
